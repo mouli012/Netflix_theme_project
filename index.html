@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix</title>
+    <link rel="icon" href="https://i.pinimg.com/736x/9e/a0/1d/9ea01d1a050f773d5f43c0d9362def36.jpg">
+    <style>
+        *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    }
+.header{
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    background-color: black;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    width: 20%;
+    height: 70px;
+    background-color: rgb(9, 9, 9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.search{
+    width: 30%;
+    height: 70px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logoimg{
+    height: 60px;
+    height: 50px;
+}
+.searchbar{
+    width: 80%;
+    height: 40px;
+    background-color: rgb(255, 248, 248);
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+.searchbox{
+    width: 80%;
+    height: 40px;
+    font-size: 18px;
+    text-indent: 20px;
+ 
+}
+.searchicon{
+    height: 30px;
+
+}
+.movies{
+    width: 100%; 
+    padding: 50px 5%;
+    background-color:rgb(0, 0, 0);
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 6.6%;
+    row-gap: 30px;
+}
+.movie{
+    width: 20%;
+    height: 450px;
+    background-color: rgb(0, 0, 0);
+    /* overflow: hidden; */
+    border-radius: 10px;
+    position: relative;
+}
+.poster{
+    width: 100%;
+    row-gap: 20px;
+    border-radius: 10px;
+    
+}
+.overlay{
+    width: 100%;
+    height: 100%;
+    /* background-color: rgb(109, 100, 100); */
+    position:absolute;
+    opacity: 0;
+    transition: .3s;
+    cursor: pointer;
+    background-color: transparent;
+}
+.overlay:hover {
+    opacity: 1;
+}
+.video{
+    width: 100%;
+    height: 50%;
+    /* background-color: yellowgreen; */
+}
+.details{
+    width: 100%;
+    height: 53%;
+    /* background-color: blue; */
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    row-gap: 20px;
+}
+body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .footer {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        .footer button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .footer p, .footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .footer p {
+            margin-bottom: 20px;
+        }
+        .footer a {
+            display: block;
+            margin: 5px 0;
+        }
+        .footer .footer-links {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: auto;
+        }
+        .footer .footer-column {
+            width: 25%;
+            text-align: left;
+        }
+        .footer .footer-column a {
+            display: block;
+            margin: 5px 0;
+        }
+        .footer .language-selector {
+            margin-top: 20px;
+        }
+        .footer .language-selector select {
+            padding: 5px;
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 3px;
+        }
+        .footer .footer-bottom {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img  class="logoimg" src="https://pngimg.com/uploads/netflix/small/netflix_PNG25.png" alt="logo" >
+        </div>
+                <div class="search">
+                    <div class="searchbar">
+                        <input type="text" onkeyup="searchmovies()" class="searchbox" id="searchvalue" placeholder="Search Movies">
+                        <img onclick="searchmovies()" class="searchicon" src="https://cdn-icons-png.flaticon.com/128/5636/5636698.png" alt="search">
+                    </div>
+                </div>
+        
+    </header>
+    <div>
+        <img src="https://cdn-uploads.gameblog.fr/img/news/404535_62e3fbdae7279.jpg" alt="">
+    </div>
+   <section class="movies" id="movies">
+   </section>
+    <script >
+        
+let movies = [
+    {
+        name:"openhemier",
+        poster:"https://m.media-amazon.com/images/I/719W5aAI5NL._AC_UF894,1000_QL80_.jpg",
+        Rating:9.0,
+        Cast:"Cast & Crew ; Christopher Nolan thumbnail image. Christopher Nolan. Director ; Cillian Murphy thumbnail image. Cillian Murphy. J. Robert Oppenheimer ; Emily Blunt ..."
+    },
+    {
+        name:"Avengers",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1Yj7tQVcRDOKGyGv-0AZlzyrtqWOveHIsUtHRZi6kkXBqXbWjWtEELNKwZL-NiLo2x1I&usqp=CAU",
+        Rating:9.0,
+        Cast:"Cast (159) · Robert Downey Jr. · Chris Evans · Mark Ruffalo · Chris Hemsworth · Scarlett Johansson · Jeremy Renner · Tom Hiddleston · Clark Gregg."
+    },
+    {
+        name:"Archer",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzQgepkWbVGhf1cUFwLS6_7BziHgao_1h6RVVZqmuB9Jy4aebvKl1qE_N77RclhdSULjw&usqp=CAU",
+        Rating:9.7,
+        Cast:"Archer Live Action Cast · 1. Jon Hamm · 2. Aisha Tyler · 3. Chris Parnell · 4. Jessica Walter · 5. Amber Nash · 6. Judy Greer · 7. Kenneth Branagh · 8. Lucky Yates."
+    },
+    {
+        name:"Animal",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXtMsOKTR5OBYV3Zss4YeHAYa1dSk26MOPziqib36ozsoGfTfdJUER7LPW86XKVn5bA7o&usqp=CAU",
+        Rating:8.5,
+        Cast:"Cast (81) · Ranbir Kapoor · Anil Kapoor · Bobby Deol · Rashmika Mandanna · Triptii Dimri · Charu Shankar · Prithviraj · Shakti Kapoor."
+    }, 
+    {
+        name:"jhonwick",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPOevpQZWi8cf-qP4vJnIpADMR9vdVhd_xymyUo_Xua7pjSJ_M2RNj2U5a1EfvIkxp8oU&usqp=CAU",
+        Rating:6.9,
+        Cast:"Cast (23) · Ryan Reynolds · Samuel L. Jackson · Salma Hayek"
+    },
+    {
+        name:"Barbie",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6kz2eaPvZnvUo1420njsxNPzh6r-EKdX9UnTf9pitMwh4FlGJEcgCJG6hFDjahtuGfhI&usqp=CAU",
+        Rating:9.4,
+        Cast:"Cast (23) · Margot Robbie · Ryan Gosling · America Ferrera"
+    },
+    {
+        name:"Spiderman",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1TPnaTUym3ZSKvPeCUJa-uDoTMXCZmdZnOcFblAUIF5D7TunLUzae6XEfRb-RX5H6RvM&usqp=CAU",
+        Rating:10.0,
+        Cast:"Tobey Maguire · Spider-Man ; Kirsten Dunst · Mary Jane Watson ; Willem Dafoe · Green Goblin ; James Franco · Harry Osborn ; Cliff Robertson · Ben Parker."
+    },
+    {
+        name:"Wrong Turn",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREmedSW4gZ14XByhEhBXOHOTbVPWiiWXppfdnsUUTMqDcwJB8wEjtrtUsXOVTeBQ3wxss&usqp=CAU",
+        Rating:8.0,
+        Cast:"Cast (23) · Matthew Modine · Emma Dumont · Charlotte Vega"
+    },
+    {
+        name:"RRR",
+        poster:"https://m.media-amazon.com/images/M/MV5BODUwNDNjYzctODUxNy00ZTA2LWIyYTEtMDc5Y2E5ZjBmNTMzXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg",
+        Rating:9.3,
+        Cast:"Cast (23) · N. T. R. Kumar ; Ram Charan"
+    },
+    {
+        name:"Magadheera",
+        poster:"https://upload.wikimedia.org/wikipedia/en/c/ce/Magadheera_Poster.jpg",
+        Rating:8.9,
+        Cast:"Cast (in credits order) ; Kajal Aggarwal ... Mithravinda Devi / Indira 'Indu' (as Kajal Agarwal) ; Dev Gill ... Ranadev Bhilla / Raghubeer ; Srihari ... Sher Khan ..."
+    },
+    {
+        name:"Bahubali",
+        poster:"https://i.pinimg.com/originals/b2/a3/3d/b2a33d968de0cb600e9d3e8877f230b5.jpg",
+        Rating:9.1,
+        Cast:"Cast (in credits order) ; Prabhas ... Amarendra Baahubali"
+    },
+    {
+        name:"Maharaja",
+        poster:"https://static.moviecrow.com/gallery/20240529/229761-Maha.jpg",
+        Rating:8.8,
+        Cast:"Cast (in credits order) ; Nandamuri Balakrishna ... Mahar"
+    },
+    {
+        name:"Kalki",
+        poster:"https://stat4.bollywoodhungama.in/wp-content/uploads/2021/07/Kalki-2898-AD-2-306x393.jpg",
+        Rating:8.6,
+        Cast:"Cast (in credits order) ;prabhas, amitabh bachhann ... Kalki"
+    },
+    {
+        name:"Devara",
+        poster:"https://m.media-amazon.com/images/M/MV5BZDBkZjJmYjQtYWFkNy00YjdiLTljMDUtYzc1OGZiZDkwMTRiXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4._V1_.jpg",
+        Rating:10,
+        Cast:"Cast (in credits order) ; NTR,janvi kapoor, kortala siva ; Anushka Shetty"
+    },
+    {
+        name:"I",
+        poster:"https://i.pinimg.com/736x/dc/86/3a/dc863aa522316b53b47345c1fedc7eaf.jpg",
+        Rating:7.3,
+        Cast:"Cast (in credits order) ; Vikram ... Kabilan ; Aishw"
+    },
+    {
+        name:"24",
+        poster:"https://content1.jdmagicbox.com/comp/jd_social/news/2018aug08/image-230483-uvzh6dm6vv.jpg?fit=around|210:308&crop=210:308;*,*",
+        Rating:6.8,
+        Cast:"Cast (in credits order) ; Suriya ... Suriya ; Samantha Ruth"
+    },
+    {
+        name:"KGF",
+        poster:"https://wallpapers.com/images/hd/kgf-yash-poster-w5sfmyqofp9ki09j.jpg",
+        Rating:8.9,
+        Cast:"Cast (in credits order) ; Yash ... Rocky"
+    },
+    {
+        name:"Kamitti Kurolluu",
+        poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS29PYxQAA3EmBg5gFGLwyj2m9fqmP8NElGVA&s",
+        Rating:7.9,
+        Cast:"Top cast26 · Prasad Behra · Ramana Bhargav · Kota Jayaram · Shyam Kalyan · Kittayya · Sai Kumar · Sri Lakshmi · Sivakumar Matta."
+    },
+    {
+        name:"Dhruva",
+        poster:"https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2016/12/07/Dhruva-Movie-Stills-and-Posters-1.jpg?fit=1171%2C1600&quality=80&zoom=1&ssl=1",
+        Rating:7.2,
+        Cast:"Cast (in credits order) ; Ram Charan ... Dhruva"
+    },
+    {
+        name: "Badri",
+        poster: "https://resizing.flixster.com/ZbwgAtMzPkOIm2_GinYBE2btrN8=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p14428923_v_v9_aa.jpg",
+        Rating: 7.3,
+        Cast: "Pawan Kalyan, Amisha Patel, Renu Desai, Prakash Raj"
+  },
+    {
+        name: "Rangasthalam",
+        poster: "https://resizing.flixster.com/asxVmsBr91qBimNx3G3jk6-uzts=/206x305/v2/https://resizing.flixster.com/8_YYrj9lvvOvwp0EPuLAZrtXdjY=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzVlZTI4ZjhiLTQ2YTktNDM4MS1hYmFhLWQ5YjJhMjM5NTdjNC53ZWJw",
+        Rating: 8.4,
+        Cast: "Ram Charan, Samantha Akkineni, Aadhi Pinisetty, Jagapathi Babu"
+    },
+    {
+        name: "Nayak",
+        poster: "https://m.media-amazon.com/images/M/MV5BNjg5MjZkZmYtNzI0ZS00ZjBiLWJiNWYtNGM1MzUzYzFhYTMwXkEyXkFqcGc@._V1_.jpg",
+        Rating: 7.7,
+        Cast: "Ram Charan, Kajal Aggarwal, Dev Gill, Srihari"
+    },
+    {
+        name: "Eega",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_XN7KZphS9d0ffKNqurfSybWu92V_fUdbCw&s",
+        Rating: 7.7,
+        Cast: "Sudeep, Nani, Samantha Ruth Prabhu, Hamsa Nandini"
+    },
+    {
+        name: "Arjun Reddy",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6h1ren5pzhe13Tfj2AJ-4rR2MEf7t-SLqvA&s",
+        Rating: 8.0,
+        Cast: "Vijay Deverakonda, Shalini Pandey, Jia Sharma, Sanjay Swaroop"
+    },
+    {
+        name: "Baahubali: The Beginning",
+        poster: "https://rukminim2.flixcart.com/image/850/1000/j6xxgnk0/poster/q/u/a/small-baahubali-1-poster-paper-print-18-inch-x-12-inch-rolled-original-imaexagrmsrmpgyy.jpeg?q=20&crop=false",
+        Rating: 8.0,
+        Cast: "Prabhas, Rana Daggubati, Anushka Shetty, Tamannaah"
+    },
+    {
+        name: "Mirchi",
+        poster: "https://m.media-amazon.com/images/M/MV5BMTBhYzFiM2MtOTFhNi00ZjY4LTlhNzEtZTY5YmJiZTFlZTFkXkEyXkFqcGc@._V1_.jp",
+        Rating: 8.2,
+        Cast: "Prabhas, Anushka Shetty, Kattapa"
+    },
+    {
+        name: "Ala Vaikunthapurramuloo",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCso3GZvWX4lM6HF_mlux0UrjezuddNlISCA&s",
+        Rating: 7.3,
+        Cast: "Allu Arjun, Pooja Hegde, Tabu, Jayaram"
+    },
+    {
+        name: "Mahanati",
+        poster: "https://image.tmdb.org/t/p/original/9VaFZ5Y5S2YHz7eIlBCRKY9wBJc.jpg",
+        Rating: 8.5,
+        Cast: "Keerthy Suresh, Dulquer Salmaan, Samantha Akkineni, Vijay Deverakonda"
+    },
+    {
+        name: "Jersey",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5qyyn6JGMJGaz_T2vNbpHsuM87OV-R436cg&s",
+        Rating: 8.5,
+        Cast: "Nani, Shraddha Srinath, Sathyaraj, Ronit Kamra"
+    },
+    {
+        name: "Fidaa",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmdRf5hNQJfS1JPFWD4vAaptVSYEUE6Pe_tA&s",
+        Rating: 7.4,
+        Cast: "Varun Tej, Sai Pallavi, Sai Chand, Raja Chembolu"
+    },
+    {
+        name: "Srimanthudu",
+        poster: "https://m.media-amazon.com/images/M/MV5BN2RiZmQ0ZDItY2YzNi00YThjLTgyYjQtNDM2ZDYzNTJmZWI2XkEyXkFqcGc@._V1_.jpg",
+        Rating: 7.5,
+        Cast: "Mahesh Babu, Shruti Haasan, Jagapathi Babu, Rajendra Prasad"
+    },
+    {
+        name: "Attarintiki Daredi",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkc0VtKfFnhODlZbdQ2DNTjE9hkHUuxFhOIw&s",
+        Rating: 7.3,
+        Cast: "Pawan Kalyan, Samantha Akkineni, Pranitha Subhash, Boman Irani"
+    },
+    {
+        name: "Gabbar Singh",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdZ0Mk4Du6w2jYehSFCifAg-1SXbOIuNHMPg&s",
+        Rating: 7.1,
+        Cast: "Pawan Kalyan, Shruti Haasan, Abhimanyu Singh, Kota Srinivasa Rao"
+    },
+    {
+        name: "Pokiri",
+        poster: "https://i.pinimg.com/originals/25/e1/26/25e1262091ff6c6742cf9636a63995df.jpg",
+        Rating: 7.9,
+        Cast: "Mahesh Babu, Ileana D'Cruz, Prakash Raj, Nassar"
+    },
+    {
+        name: "Bommarillu",
+        poster: "https://m.media-amazon.com/images/M/MV5BMTEzNTRmZWMtMjA3NS00ZmZlLTg2YmQtMTY3NjBkZWViMTQxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+        Rating: 8.2,
+        Cast: "Siddharth, Genelia D'Souza, Prakash Raj, Kota Srinivasa Rao"
+    },
+    {
+        name: "Manam",
+        poster: "https://upload.wikimedia.org/wikipedia/en/0/0c/Manam_poster.jpg",
+        Rating: 8.0,
+        Cast: "Nagarjuna Akkineni, Naga Chaitanya, Shriya Saran, Samantha Akkineni"
+    },
+    {
+        name: "1: Nenokkadine",
+        poster: "https://files.prokerala.com/movies/pics/800/movie-posters-21510.jpg",
+        Rating: 8.1,
+        Cast: "Mahesh Babu, Kriti Sanon, Nassar, Pradeep Rawat"
+    },
+    {
+        name: "Evaru",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq1WyUzNUxKju2nK0VNXNxifo3oGtHKXkGpw&s",
+        Rating: 8.2,
+        Cast: "Adivi Sesh, Regina Cassandra, Naveen Chandra, Murali Sharma"
+    }
+]
+
+function searchmovies() {
+    let moviename = document.getElementById('searchvalue').value;
+    
+   if (moviename !== "") {
+        let result = movies.filter(function(movie){
+        return movie.name.toLocaleUpperCase()===moviename.toLocaleUpperCase()
+        })
+    displaymovies(result)
+   }
+}
+function displaymovies(data) {
+    document.getElementById("movies").innerHTML="";
+    let htmlstring = ``;
+    for (let i = 0; i < data.length; i++) {
+        htmlstring += `
+        <div class="movie">
+            <div class="overlay">
+                <div class="video">
+                    <!-- Video placeholder, if any -->
+                </div>
+                <div class="details">
+                    <h1>${data[i].name}</h1>
+                    <h2>IMDB: ${data[i].Rating}</h2>
+                    <p>Cast:${data[i].Cast}</p>
+                </div>
+            </div>
+            <img class="poster" src="${data[i].poster}" alt="${data[i].name}">
+        </div>`;
+    }
+    document.getElementById("movies").innerHTML = htmlstring;
+}
+
+displaymovies(movies);
+    </script>
+    <div class="footer">
+        <button>Finish Sign-Up</button>
+        <p>Questions? Call <a href="tel:000-800-919-1743" style="text-decoration: underline;">000-800-919-1743</a></p>
+        
+        <div class="footer-links">
+            <div class="footer-column">
+                <a href="#">FAQ</a>
+                <a href="#">Investor Relations</a>
+                <a href="#">Privacy</a>
+                <a href="#">Speed Test</a>
+            </div>
+            <div class="footer-column">
+                <a href="#">Help Centre</a>
+                <a href="#">Jobs</a>
+                <a href="#">Cookie Preferences</a>
+                <a href="#">Legal Notices</a>
+            </div>
+            <div class="footer-column">
+                <a href="#">Account</a>
+                <a href="#">Ways to Watch</a>
+                <a href="#">Corporate Information</a>
+                <a href="#">Only on Netflix</a>
+            </div>
+            <div class="footer-column">
+                <a href="#">Media Centre</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+        
+        <div class="language-selector">
+            <select>
+                <option>English</option>
+                <option value="">Hindi</option>
+                <option value="">Telugu</option>
+                <option value="">Tamil</option>
+                <option value="">Spanish</option>
+                <option value=""></option>
+            </select>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>Netflix India</p>
+        </div>
+    </div>
+</body>
+</html>
